@@ -13,16 +13,21 @@ Operations on strings are divided into two types:
 
 ## API
 
-### General operations
+### Lifecycle
 
 | Function | Description |
 |---|---|
-| `string_clear(string)` | Reset length to 0 without freeing the buffer |
 | `string_create(max)` | Allocate a new String with initial capacity `max` |
 | `string_destroy(string)` | Free a String and its buffer |
-| `string_len(string)` | Return the current length |
 | `string_realloc(string, new)` | Resize the buffer; truncates content if shrinking.  Returns new size on success, 0 on failure. |
 
+### Access
+
+| Function | Description |
+|---|---|
+| `string_len(string)` | Return the current length |
+| `string_max(string)` | Return the maximum length |
+| `string_str(string)` | Return a const pointer to the string contents |
 
 ### Primitive operations (`char` pointer)
 
@@ -41,3 +46,4 @@ Operations on strings are divided into two types:
 | `string_catenate(dst, src)` | Append `src` to `dst`, reallocating `dst` if needed |
 | `string_copy(dst, src)` | Copy `src` into `dst`, reallocating `dst` if needed |
 | `string_duplicate(src)` | Allocate a new String copied from `src` |
+| `string_clear(string)` | Reset length to 0 without freeing the buffer |
