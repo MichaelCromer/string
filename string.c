@@ -1,5 +1,5 @@
+#include <stddef.h>
 #include <stdlib.h>
-#include "./string.h"
 
 
 struct String
@@ -28,19 +28,19 @@ void string_destroy(struct String *string)
 }
 
 
-bool string_realloc(struct String *string, size_t new)
+size_t string_realloc(struct String *string, size_t new)
 {
-    if (!string) return false;
+    if (!string) return 0;
 
     char *tmp = realloc(string->data, new + 1);
-    if (!tmp) return false;
+    if (!tmp) return 0;
 
     string->data = tmp;
     string->max = new;
     if (string->len > string->max) string->len = string->max;
     string->data[string->len] = 0;
 
-    return true;
+    return new;
 }
 
 
