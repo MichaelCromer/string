@@ -121,7 +121,13 @@ void string_strncpy(struct String *dst, const char *src, size_t n)
     if (!dst || !src) return;
     
     size_t len_cpy = (n > dst->max) ? dst->max : n;
-    for (size_t i = 0; i < len_cpy; i++) dst->data[i] = src[i];
+    for (size_t i = 0; i < len_cpy; i++) {
+        dst->data[i] = src[i];
+        if (!src[i]) {
+            len_cpy = i;
+            break;
+        }
+    }
     dst->data[len_cpy] = 0;
     dst->len = len_cpy;
 }
@@ -177,7 +183,13 @@ void string_strncat(struct String *dst, const char *src, size_t n)
     if (!dst || !src) return;
 
     size_t len_cat = (dst->len + n > dst->max) ? (dst->max - dst->len) : n;
-    for (size_t i = 0; i < len_cat; i++) dst->data[dst->len + i] = src[i];
+    for (size_t i = 0; (i < len_cat); i++) {
+        dst->data[dst->len + i] = src[i];
+        if (!src[i]) {
+            len_cat = i;
+            break;
+        }
+    }
 
     dst->len += len_cat;
     dst->data[dst->len] = 0;
