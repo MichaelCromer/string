@@ -1,12 +1,14 @@
 # String
 
-A dynamic string library for C built around `struct String`, which tracks both length and capacity.
+(Yet Another) dynamic string library for C built around `struct String`, which tracks length and capacity. String data is stored with a null terminating byte so is compatible with C string functions.
 
-`struct String` is opaque: its fields are not accessible outside `string.c`. Always create with `string_create` (or `string_duplicate` or `string_strndup`) and free with `string_destroy`.
+`struct String` is "immutable" by design: its fields are readable but not directly writeable outside `string.c`. The user can nevertheless obtain a `char` pointer to the stored string data, but should be aware that dropping the `const` and modifying its contents may cause unpredictable behaviour.
+
+Always create with `string_create` (or `string_duplicate` or `string_strndup`) and free with `string_destroy`. Pass the desired buffer size or use `string_realloc` to preallocate enough space.
 
 ## Naming convention
 
-Operations on strings are divided into two types:
+Operations are divided into two types:
 
 - **`string_str<fn>`** — primitive operations taking a `char` pointer with names matching those in the standard `string.h` library. Unlike their namesakes, they always respect the existing string max capacity and truncate silently if the source is too large.
 - **`string_<verb>`** — struct-aware operations taking a `String` pointer. Reallocate as needed to preserve the full value.
