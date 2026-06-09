@@ -107,20 +107,6 @@ void test_strndup(void)
 }
 
 
-void test_true(void)
-{
-    ASSERT(1);
-    PASS();
-}
-
-
-void test_false(void)
-{
-    ASSERT(0);
-    PASS();
-}
-
-
 int main(void)
 {
     RUN(test_strcpy);
